@@ -3,7 +3,10 @@ import os
 import requests
 import json
 import time
-
+#2.오늘 3.내일 추가
+#지역 검색기능
+#다른 지역도 검색 가능하도록
+#속도개선(불러오는게 느린게 아닌듯, 처리가 느린듯)
 
 def list_show(li_st,name,nex):
     li_st.sort()

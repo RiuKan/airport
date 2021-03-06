@@ -1,6 +1,6 @@
-
+@echo off
 set /p initi= git init? (Y ot n): 
-echo %initi%
+
 if "%initi%" == "Y" git init
 if "%initi%" == "Y" set /p remote= remote address? 
 if "%initi%" == "Y" git remote add origin %remote%
