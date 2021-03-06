@@ -14,6 +14,6 @@ if "%initi%" == "y" git remote add origin %remote%
 
 git add *
 setlocal
-set /p str= message :
-git commit -m "%str%"
+
+git commit -m "/p 입력하세요"
 git push origin master
