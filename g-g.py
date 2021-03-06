@@ -14,21 +14,27 @@ def list_show(li_st,name,nex):
     return input_
 def open_url():
     date_two = time.strftime("%Y%m%d",time.localtime(time.mktime(time.strptime(date,"%Y%m%d"))+86400*2))                     
-    url = f"https://domair.interpark.com/dom/main.do?trip=OW&dep=KWJ&arr=GMP&dep2=GMP&arr2=KWJ&depdate={date}&retdate={date_two}&adt=1&chd=0&inf=0&mbn=tourair&mln=airdome_search1#anchor-list"
+    url = f"https://domair.interpark.com/dom/main.do?trip=OW&dep={depp}&arr={arrr}&dep2=GMP&arr2=KWJ&depdate={date}&retdate={date_two}&adt=1&chd=0&inf=0&mbn=tourair&mln=airdome_search1#anchor-list"
     webbrowser.open(url)
     
 months = {"1":31,"2":28,"3":31,"4":30,"5":31,"6":30,"7":31,"8":31,"9":30,"10":31,"11":30,"12":31}
+names = {"KWJ":"광주", "GMP":"김포"}
+depp = "KWJ"
+arrr = "GMP"
 while True:
     os.system("mode con cols=60 lines=10")
     
     while True:
         try:
             os.system('cls')
-            date = int(input("\n날짜를 입력하세요. \nex) 317(3월17일), 1211(12월11일)\n\n\n=>  " ))
+            date = int(input(f"{names[depp]} --> {names[arrr]}\n날짜를 입력하세요. ( 1 = 출발<->도착 변경) \nex) 317(3월17일), 1211(12월11일)\n\n\n=>  " ))
             str_date = str(date)
             if not date:
                 print("입력되지 않았습니다.")
                 time.sleep(0.2)
+            if date == 1:
+                depp,arrr = arrr,depp
+                
             elif len(str_date) == 3:
                 
                 if int(str_date[1:]) <= months[str_date[0]]:
@@ -67,7 +73,7 @@ while True:
     
     for air in ports:
         
-        r = requests.get(f'https://domair.interpark.com/api/booking/airJourney.do?format=json&dep=KWJ&arr=GMP&depDate={date}&adt=1&chd=0&inf=0&tripDivi=0&airlineCode={air}&siteCode=')
+        r = requests.get(f'https://domair.interpark.com/api/booking/airJourney.do?format=json&dep={depp}&arr={arrr}&depDate={date}&adt=1&chd=0&inf=0&tripDivi=0&airlineCode={air}&siteCode=')
 
         js = json.loads(r.text)
         if js['replyAvailFare'] == None:
